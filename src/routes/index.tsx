@@ -235,9 +235,19 @@ function Home() {
         />
         <div className="hero-glow -top-24 right-0 size-[28rem] bg-tone-teal" aria-hidden />
         <div className="hero-glow -bottom-32 left-1/3 size-[22rem] bg-tone-amber [animation-delay:-6s]" aria-hidden />
+        <div
+          className="hero-ring pointer-events-none absolute -right-32 top-1/2 z-0 hidden size-[30rem] -translate-y-1/2 rounded-full border border-dashed border-tone-teal/30 lg:block"
+          aria-hidden
+        >
+          <span className="hero-node absolute left-1/2 top-0 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-tone-teal" />
+          <span className="hero-node absolute bottom-[8%] right-[14%] size-1.5 rounded-full bg-tone-amber [animation-delay:-1.6s]" />
+        </div>
         <div className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 sm:py-24 lg:py-28">
           <p className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-surface/20 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-primary">
-            <span className="size-2 rounded-full bg-accent shadow-[0_0_14px_var(--color-accent)]" />
+            <span className="relative flex size-2">
+              <span className="hero-ping absolute inline-flex size-full rounded-full bg-accent" />
+              <span className="relative inline-flex size-2 rounded-full bg-accent shadow-[0_0_14px_var(--color-accent)]" />
+            </span>
             ArpScayl Systems · Johannesburg, South Africa
           </p>
           <h1 className="mt-6 max-w-4xl font-display text-4xl font-semibold leading-[1.06] tracking-tight sm:text-6xl">
@@ -266,6 +276,32 @@ function Home() {
                 {(() => { const I = Icon as LucideIcon; return <I className="size-3 text-accent" aria-hidden />; })()}
                 {item as string}
               </span>
+            ))}
+          </div>
+        </div>
+        <div className="relative border-t border-border/40 py-4" aria-hidden>
+          <div className="hero-marquee gap-10 px-5">
+            {[0, 1].map((copy) => (
+              <div key={copy} className="flex shrink-0 items-center gap-10">
+                {[
+                  "Cloud Infrastructure",
+                  "DevOps Automation",
+                  "Security Hardening",
+                  "Kubernetes",
+                  "Terraform",
+                  "CI/CD Pipelines",
+                  "Monitoring & Observability",
+                  "Systems Architecture",
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className="flex items-center gap-10 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground/50"
+                  >
+                    {item}
+                    <span className="size-1 rounded-full bg-tone-teal/70" />
+                  </span>
+                ))}
+              </div>
             ))}
           </div>
         </div>
