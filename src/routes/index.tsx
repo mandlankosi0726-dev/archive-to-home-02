@@ -236,7 +236,7 @@ function Home() {
         <div className="hero-glow -top-24 right-0 size-[28rem] bg-tone-teal" aria-hidden />
         <div className="hero-glow -bottom-32 left-1/3 size-[22rem] bg-tone-amber [animation-delay:-6s]" aria-hidden />
         <div
-          className="hero-ring pointer-events-none absolute -right-32 top-1/2 -z-10 hidden size-[30rem] -translate-y-1/2 rounded-full border border-dashed border-tone-teal/25 lg:block"
+          className="hero-ring pointer-events-none absolute -right-32 top-1/2 z-0 hidden size-[30rem] -translate-y-1/2 rounded-full border border-dashed border-tone-teal/30 lg:block"
           aria-hidden
         >
           <span className="hero-node absolute left-1/2 top-0 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-tone-teal" />
