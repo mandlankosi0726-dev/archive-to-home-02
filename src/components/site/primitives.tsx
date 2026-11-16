@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export function Section({
@@ -16,9 +16,26 @@ export function Section({
   children?: ReactNode;
   className?: string;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.classList.add("reveal");
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("is-visible");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.08 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
     <section id={id} className={cn("editorial-section border-t border-border", className)}>
-      <div className="mx-auto w-full max-w-425 px-6 py-16 sm:px-8 sm:py-24">
+      <div ref={ref} className="mx-auto w-full max-w-425 px-6 py-16 sm:px-8 sm:py-24">
         {eyebrow ? <p className="label-mono mb-4 text-primary">{eyebrow}</p> : null}
         {title ? (
           <h2 className="max-w-3xl text-[28px] font-bold leading-tight sm:text-4xl">{title}</h2>

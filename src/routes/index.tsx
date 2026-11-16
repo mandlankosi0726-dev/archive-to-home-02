@@ -13,7 +13,48 @@ import {
   Settings2,
   ShieldCheck,
   Workflow,
+  Hand,
+  UserRound,
+  Puzzle,
+  ShieldAlert,
+  Eye,
+  CloudCog,
+  Construction,
+  TrendingUp,
+  Search,
+  DraftingCompass,
+  Hammer,
+  RefreshCw,
+  Shield,
+  Infinity as InfinityIcon,
+  Rocket as Launch,
+  CloudUpload,
+  Code2,
+  Users,
+  Lock,
+  BarChart3,
+  GitBranch,
+  FileCode2,
+  Container,
+  Ship,
+  GitMerge,
+  Activity,
+  FlaskConical,
+  Zap,
+  BookOpen,
+  FileText,
+  Github,
+  Target,
+  Repeat,
+  Terminal,
+  Cpu,
+  Database,
+  Layers,
+  Network as NetIcon,
+  KeyRound,
+  Sparkles,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { ProjectCard } from "@/components/site/ProjectCard";
 import { Section, Tag } from "@/components/site/primitives";
 import { activeServices } from "@/config/services";
@@ -70,7 +111,15 @@ const outcomes: Record<string, string> = {
 };
 
 const serviceIcons = [ServerCog, Cloud, Workflow, ShieldCheck, Boxes, Network];
-const workflowIcons = [Gauge, Settings2, Rocket, Check];
+const workflowIcons = [Search, DraftingCompass, Rocket, Check];
+const tones = ["tone-teal", "tone-sky", "tone-amber", "tone-coral", "tone-emerald", "tone-gold"];
+const toneOf = (i: number) => tones[i % tones.length];
+const problemIcons: LucideIcon[] = [Hand, UserRound, Puzzle, ShieldAlert, Eye, CloudCog, Construction, TrendingUp];
+const engagementIcons: LucideIcon[] = [Search, DraftingCompass, Hammer, RefreshCw, Shield, InfinityIcon];
+const audienceIcons: LucideIcon[] = [Launch, CloudUpload, Rocket, Settings2, Code2, Lock, BarChart3, GitBranch];
+const evidenceIcons: LucideIcon[] = [DraftingCompass, FileCode2, Container, Ship, GitMerge, Cloud, ShieldCheck, Activity, FlaskConical, Zap, BookOpen, FileText, Github];
+const principleIcons: LucideIcon[] = [Target, Repeat, ShieldCheck, Gauge, BookOpen, FlaskConical];
+const stackIcons: LucideIcon[] = [Terminal, Cloud, FileCode2, Container, Database, Layers, Cpu, GitMerge, NetIcon, KeyRound];
 
 const engagements = [
   {
@@ -184,13 +233,15 @@ function Home() {
           className="grid-field pointer-events-none absolute inset-0 -z-10 opacity-30"
           aria-hidden
         />
+        <div className="hero-glow -top-24 right-0 size-[28rem] bg-tone-teal" aria-hidden />
+        <div className="hero-glow -bottom-32 left-1/3 size-[22rem] bg-tone-amber [animation-delay:-6s]" aria-hidden />
         <div className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 sm:py-24 lg:py-28">
           <p className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-surface/20 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-primary">
             <span className="size-2 rounded-full bg-accent shadow-[0_0_14px_var(--color-accent)]" />
             ArpScayl Systems · Johannesburg, South Africa
           </p>
           <h1 className="mt-6 max-w-4xl font-display text-4xl font-semibold leading-[1.06] tracking-tight sm:text-6xl">
-            Engineering the infrastructure behind reliable digital systems.
+            Engineering the infrastructure behind <span className="text-gradient">reliable digital systems.</span>
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             ArpScayl Systems designs, deploys, secures and improves the infrastructure that powers
@@ -203,12 +254,17 @@ function Home() {
             </Link>
           </div>
           <div className="mt-10 flex flex-wrap gap-3">
-            {["Independent", "Founder-led", "Infrastructure engineering"].map((item) => (
+            {[
+              [Sparkles, "Independent"],
+              [Users, "Founder-led"],
+              [ServerCog, "Infrastructure engineering"],
+            ].map(([Icon, item]) => (
               <span
-                key={item}
-                className="rounded-full border border-border/50 bg-surface/20 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-foreground/75"
+                key={item as string}
+                className="rounded-full border border-border/50 bg-surface/20 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-foreground/75 inline-flex items-center gap-1.5"
               >
-                {item}
+                {(() => { const I = Icon as LucideIcon; return <I className="size-3 text-accent" aria-hidden />; })()}
+                {item as string}
               </span>
             ))}
           </div>
@@ -222,15 +278,17 @@ function Home() {
         intro="Most infrastructure problems build up quietly — until a release, an outage or growth exposes them."
       >
         <ul className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-          {problems.map((item) => (
-            <li key={item} className="flex gap-3 bg-surface p-5 text-sm leading-relaxed">
-              <CircleAlert
-                className="mt-0.5 size-4 shrink-0 text-accent-foreground"
-                aria-hidden="true"
-              />
-              {item}
+          {problems.map((item, i) => {
+            const Icon = problemIcons[i] ?? CircleAlert;
+            return (
+            <li key={item} className={`group flex items-start gap-3 bg-surface p-5 text-sm leading-relaxed transition-colors hover:bg-soft ${toneOf(i + 3)}`}>
+              <span className="icon-tile size-9! shrink-0">
+                <Icon className="size-4" aria-hidden="true" />
+              </span>
+              <span className="pt-1.5">{item}</span>
             </li>
-          ))}
+            );
+          })}
         </ul>
         <p className="mt-8 max-w-3xl border-l-2 border-primary pl-5 text-lg leading-relaxed">
           ArpScayl engineers the systems underneath your applications so your business can operate
@@ -249,13 +307,13 @@ function Home() {
             return (
               <article
                 key={service.title}
-                className="site-card flex flex-col border border-border bg-surface p-6"
+                className={`site-card flex flex-col border border-border bg-surface p-6 ${toneOf(index)}`}
               >
                 <div className="flex items-start justify-between">
                   <span className="icon-tile">
                     <Icon className="size-5" aria-hidden="true" />
                   </span>
-                  <span className="font-mono text-xs text-primary">
+                  <span className="tone-text font-mono text-xs">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
@@ -296,7 +354,7 @@ function Home() {
             .map((e) => (
               <article
                 key={e.title}
-                className="site-card flex flex-col border border-primary/40 bg-gradient-to-br from-primary/10 via-surface to-accent/10 p-6 sm:p-8"
+                className="site-card flex flex-col border border-primary/40 bg-gradient-to-br from-tone-teal/15 via-surface to-tone-amber/20 p-6 sm:p-8"
               >
                 <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-primary">
                   <LockKeyhole className="size-4" aria-hidden="true" /> Recommended starting point
@@ -319,10 +377,11 @@ function Home() {
             {engagements
               .filter((e) => !e.primary)
               .map((e, i) => (
-                <article key={e.title} className="site-card border border-border bg-surface p-5">
-                  <span className="font-mono text-xs text-primary">
-                    {String(i + 2).padStart(2, "0")}
-                  </span>
+                <article key={e.title} className={`site-card border border-border bg-surface p-5 ${toneOf(i + 1)}`}>
+                  <div className="flex items-center justify-between">
+                    {(() => { const Icon = engagementIcons[i + 1]; return <span className="icon-tile"><Icon className="size-5" aria-hidden="true" /></span>; })()}
+                    <span className="tone-text font-mono text-xs">{String(i + 2).padStart(2, "0")}</span>
+                  </div>
                   <h3 className="mt-2 text-base font-semibold">{e.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.text}</p>
                 </article>
@@ -334,13 +393,16 @@ function Home() {
       <Section eyebrow="04 — Who we work with" title="Who We Work With">
         <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr]">
           <ul className="grid gap-x-8 sm:grid-cols-2">
-            {audiences.map((a) => (
-              <li key={a} className="flex gap-3 border-b border-border py-3 text-sm">
-                <span className="mt-2 size-1 shrink-0 bg-primary" aria-hidden="true" /> {a}
-              </li>
-            ))}
+            {audiences.map((a, i) => {
+              const Icon = audienceIcons[i];
+              return (
+                <li key={a} className={`group flex items-center gap-3 border-b border-border py-3 text-sm transition-transform hover:translate-x-1 ${toneOf(i)}`}>
+                  <Icon className="tone-text size-4 shrink-0" aria-hidden="true" /> {a}
+                </li>
+              );
+            })}
           </ul>
-          <aside className="site-card flex flex-col justify-between border border-border bg-gradient-to-br from-primary/10 to-accent/10 p-6">
+          <aside className="site-card flex flex-col justify-between border border-border bg-gradient-to-br from-tone-sky/15 to-tone-amber/20 p-6">
             <div>
               <h3 className="text-xl font-semibold">Not sure what you need?</h3>
               <p className="mt-3 text-sm text-muted-foreground">
@@ -378,17 +440,23 @@ function Home() {
         intro="ArpScayl does not simply claim technical capability — it demonstrates it."
       >
         <ul className="grid grid-cols-2 gap-px border border-border bg-border sm:grid-cols-3 lg:grid-cols-5">
-          {evidence.map((e) => (
+          {evidence.map((e, i) => {
+            const Icon = evidenceIcons[i];
+            return (
             <li key={e}>
               <Link
                 to="/evidence"
-                className="group flex h-full min-h-24 flex-col justify-between gap-3 bg-surface p-4 text-sm transition-colors hover:bg-primary/5"
+                className={`group flex h-full min-h-28 flex-col justify-between gap-3 bg-surface p-4 text-sm transition-colors hover:bg-soft ${toneOf(i)}`}
               >
-                {e}
-                <ArrowRight className="size-3.5 text-primary" aria-hidden="true" />
+                <span className="icon-tile size-9!"><Icon className="size-4" aria-hidden="true" /></span>
+                <span className="flex items-center justify-between gap-2">
+                  {e}
+                  <ArrowRight className="tone-text size-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                </span>
               </Link>
             </li>
-          ))}
+            );
+          })}
         </ul>
       </Section>
 
@@ -401,7 +469,7 @@ function Home() {
           {projectWorkflow.map((step, index) => {
             const Icon = workflowIcons[index % workflowIcons.length];
             return (
-              <li key={step.title} className="site-card border border-border bg-surface p-5">
+              <li key={step.title} className={`site-card border border-border bg-surface p-5 ${toneOf(index)}`}>
                 <span className="icon-tile mb-4">
                   <Icon className="size-5" aria-hidden="true" />
                 </span>
@@ -417,8 +485,9 @@ function Home() {
 
       <Section className="bg-surface-2/40" eyebrow="08 — Principles" title="How We Engineer">
         <div className="grid gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
-          {whyArpScayl.map((item) => (
-            <article key={item.title} className="bg-surface p-6">
+          {whyArpScayl.map((item, i) => (
+            <article key={item.title} className={`site-card bg-surface p-6 ${toneOf(i)}`}>
+              {(() => { const Icon = principleIcons[i % principleIcons.length]; return <span className="icon-tile mb-4"><Icon className="size-5" aria-hidden="true" /></span>; })()}
               <h3 className="text-base font-semibold">{item.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-foreground/90">
                 {principleLines[item.title]}
@@ -437,12 +506,15 @@ function Home() {
         intro="Technology selection is driven by system requirements, operational constraints and business objectives."
       >
         <dl className="grid gap-x-10 sm:grid-cols-2">
-          {stack.map(([k, v]) => (
+          {stack.map(([k, v], i) => (
             <div
               key={k}
-              className="flex flex-col gap-1 border-b border-border py-3 sm:flex-row sm:gap-6"
+              className={`flex flex-col gap-1 border-b border-border py-3 sm:flex-row sm:items-center sm:gap-6 ${toneOf(i)}`}
             >
-              <dt className="label-mono sm:w-44 sm:shrink-0">{k}</dt>
+              <dt className="label-mono flex items-center gap-2 sm:w-52 sm:shrink-0">
+                {(() => { const Icon = stackIcons[i]; return <Icon className="tone-text size-4" aria-hidden="true" />; })()}
+                {k}
+              </dt>
               <dd className="text-sm text-foreground/90">{v}</dd>
             </div>
           ))}
@@ -462,7 +534,7 @@ function Home() {
         </div>
       </Section>
 
-      <Section className="bg-surface">
+      <Section className="bg-soft">
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <div>
             <p className="label-mono">Next step</p>
