@@ -1,0 +1,7 @@
+[
+ {"capability":"public website pages","source":"frontend.zip","outcome":"migrate","status":"done","next_action":"none"},
+ {"capability":"staff portal + customer portal","source":"frontend.zip","outcome":"migrate","status":"pending","next_action":"user to upload full project with database setup"},
+ {"capability":"database schema + records","source":"missing from archive","outcome":"migrate","status":"pending","next_action":"full project upload + data export"},
+ {"capability":"user accounts","source":"missing","outcome":"migrate","status":"pending","next_action":"user export"},
+ {"capability":"contact form storage","source":"enquiry.functions","outcome":"migrate","status":"temporary email fallback","next_action":"move to Cloud with database"}
+]
