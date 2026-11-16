@@ -255,7 +255,9 @@ function Home() {
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             ArpScayl Systems designs, deploys, secures and improves the infrastructure that powers
-            modern applications, platforms and business operations.
+            modern applications, platforms and business operations — built for small, growing and
+            medium businesses that need enterprise-grade reliability without an enterprise-sized
+            team.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <PrimaryCta />
@@ -267,7 +269,7 @@ function Home() {
             {[
               [Sparkles, "Independent"],
               [Users, "Founder-led"],
-              [ServerCog, "Infrastructure engineering"],
+              [ServerCog, "For small to medium businesses"],
             ].map(([Icon, item]) => (
               <span
                 key={item as string}
