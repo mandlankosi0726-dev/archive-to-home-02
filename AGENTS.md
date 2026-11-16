@@ -28,3 +28,4 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+- Public-site colour tones live as .tone-* classes in src/styles.css; components pick a tone class rather than raw colours. Why: one place to tune the palette.
